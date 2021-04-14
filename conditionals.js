@@ -9,8 +9,6 @@ $(document).ready(function () {
 });
 let counter = 0;
 
-
-
 function countClick(event) {
     event.preventDefault();
 
@@ -19,15 +17,13 @@ function countClick(event) {
     counter++;
 
     // Print the current number of clicks to the
-
     // <p> with ID "clickCountOutput"
     $("p#clickCountOutput").text(counter);
-    // When the count gets to 10, reset it to 0
-    if (counter === 11){
-        counter = 0;
 
-    }
-    else{
+    // When the count gets to 10, reset it to 0
+    if(counter === 11)
+    {
+        counter = 0;
         $("p#clickCountOutput").text(counter);
     }
 
