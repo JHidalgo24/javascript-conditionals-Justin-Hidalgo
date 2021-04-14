@@ -7,18 +7,29 @@ $(document).ready(function () {
     $("#catForm").on("submit", recommendFood);
     $("#cardForm").on("submit", drawCard);
 });
+let counter = 0;
+
+
 
 function countClick(event) {
     event.preventDefault();
 
     // Increment a variable that tracks the
     // number of button clicks
+    counter++;
 
     // Print the current number of clicks to the
+
     // <p> with ID "clickCountOutput"
-
+    $("p#clickCountOutput").text(counter);
     // When the count gets to 10, reset it to 0
+    if (counter === 11){
+        counter = 0;
 
+    }
+    else{
+        $("p#clickCountOutput").text(counter);
+    }
 
 }
 
@@ -28,10 +39,19 @@ function checkAge(event) {
 
     // Get the user's birth year from the text
     // box with ID of "birthYear"
+    let birthYear = parseInt($("input#birthYear").val());
+
+    let age = 2021-birthYear;
 
     // If they are currently under 18, print "Child"
     // to the <p> with ID of "birthYearOutput"
 
+    if (age <= 17){
+        $("p#birthYearOutput").text("Child");
+    }
+    else{
+        $("p#birthYearOutput").text("Adult");
+    }
     // If they are 18 or over, print "Adult" instead
 
 }
@@ -41,11 +61,32 @@ function calcSalesTax(event) {
 
     // Get the purchase amount from the text
     // box with ID of "purchaseAmount"
+    let amount = parseFloat($("input#purchaseAmount").val());
 
     // Get the state from the text box with ID "state"
 
-    // Tax rates are: WI 5%, IL 8%, MN 7.5%, MI 5.5%
+    let state = $("input#state").val()
 
+    // Tax rates are: WI 5%, IL 8%, MN 7.5%, MI 5.5%
+    if (state == "WI"){
+        let tax = 0.05 * amount;
+        $("p#salesTaxOutput").text(tax.toFixed(2));
+    }
+    else if (state == "IL"){
+        let tax = 0.08 * amount;
+        $("p#salesTaxOutput").text(tax.toFixed(2));
+    }
+    else if (state == "MN"){
+        let tax = 0.075 * amount;
+        $("p#salesTaxOutput").text(tax.toFixed(2));
+    }
+    else if (state == "MI"){
+        let tax = 0.055 * amount;
+        $("p#salesTaxOutput").text(tax.toFixed(2));
+    }
+    else {
+        $("p#salesTaxOutput").text("error");
+    }
     // Calculate the sales tax amount and print to
     // the <p> with ID of "salesTaxOutput"
 
@@ -60,16 +101,25 @@ function recommendFood(event) {
 
     // Get the cat's age from the text box with
     // ID of "catAge"
-
+    let catAge = $("input#catAge").val();
     // Cats under 2 get "kitten chow", between 2 and 10
     // get "adult chow", and over 10 get "senior chow"
-
+    if (catAge<= 2){
+        $("p#catAgeOutput").text("Kitten chow");
+    }
+    else if( catAge < 10){
+    $("p#catAgeOutput").text("Adult Chow");
+    }
+    else{
+        $("p#catAgeOutput").text("Senior Chow");
+    }
     // Print the food recommendation to the <p> with
     // ID of "catAgeOutput"
 
 
 }
-
+    let num = "";
+    let suitType = "";
 function drawCard(event) {
     event.preventDefault();
 
@@ -87,12 +137,39 @@ function drawCard(event) {
     // For face values 2 - 10, you can just print the number.
     // Face value 1 is "Ace", 11 is "Jack", 12 is "Queen",
     // and 13 is "King"
-
+    if (faceValue ==1)
+    {
+        num = "Ace"
+    }
+    else if (faceValue<=10)
+    {
+        num = `${faceValue}`;
+    }
+    else if (faceValue==11){
+        num = "Ace";
+    }
+    else if (faceValue==12){
+        num = "Queen";
+    }
+    else if (faceValue==13){
+         num = "King";
+    }
     // For the suits, 1 is "Clubs", 2 is "Spades",
     // 3 is "Hearts", 4 is "Diamonds"
-
+    if (suit == 1){
+        suitType = "clubs";
+    }
+    if (suit == 2){
+        suitType = "Spades";
+    }
+    if (suit == 3){
+        suitType = "Hearts";
+    }
+    if (suit == 4){
+        suitType = "Diamonds";
+    }
     // Print the card's description to the <p> with
     // ID of "drawCardOutput"
-
+    $("p#drawCardOutput").text(`${num} of ${suitType}`)
 
 }
